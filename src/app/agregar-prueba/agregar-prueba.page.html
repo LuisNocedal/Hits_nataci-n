@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar prueba</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Nombre de la prueba</ion-label>
+    <ion-input [(ngModel)]="prueba"></ion-input>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button fill="outline" [disabled]="!prueba" *ngIf="!pruebaEditando" (click)="guardar()">
+        Guardar
+      </ion-button>
+      <ion-button fill="outline" [disabled]="!prueba" *ngIf="pruebaEditando" (click)="guardarCambios()">
+        Guardar cambios
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

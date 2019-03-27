@@ -1,0 +1,30 @@
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col><img src="assets/imgs/COMUDE.png" id="imagen1"></ion-col>
+      <ion-col>
+        <h2 style="text-align: center"><strong>Rama {{rama}}</strong></h2>
+        <h2 style="text-align: center" *ngIf="categoria"><strong>{{categoria.edadMenor}} - {{categoria.edadMayor}}
+            años</strong></h2>
+        <h2 style="text-align: center" *ngIf="prueba"><strong>{{prueba.prueba}}</strong></h2>
+      </ion-col>
+      <ion-col><img src="assets/imgs/ESCUELAS.png" id="imagen2"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div>
+    <ion-grid class="tablaHits">
+      <ion-row>
+        <ion-col size="0.5" class="colorCasilla"></ion-col>
+        <ion-col *ngFor="let columna of columnas" class="colorCasilla">{{columna}}</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let filaHits of hits; let i = index">
+        <ion-col size="0.5" class="colorCasilla">{{i+1}}</ion-col>
+        <ion-col *ngFor="let nadador of filaHits">
+          <p><strong>Nombre: </strong>{{nadador.nombre}}</p>
+          <p><strong>Minutos: </strong>{{nadador.pruebaFiltro.tiempoEstimado}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

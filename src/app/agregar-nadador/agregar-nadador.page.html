@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar nadador</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="formNadador">
+
+    <ion-item>
+      <ion-label position="floating">Nombre del nadador</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Edad: </ion-label>
+      <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona la edad" formControlName="edad">
+        <ion-select-option *ngFor="let edad of edades" value="{{edad}}">{{edad}} {{(edad == 1)?'año':'años'}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Rama: </ion-label>
+      <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona la rama" formControlName="rama">
+        <ion-select-option value="Femenil">Femenil</ion-select-option>
+        <ion-select-option value="Varonil">Varonil</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <h2>Pruebas</h2>
+
+    <ion-item>
+      <ion-label>Prueba: </ion-label>
+      <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona la prueba" formControlName="prueba">
+        <ion-select-option *ngFor="let prueba of pruebas" value="{{prueba.id}}">{{prueba.prueba}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <p>Tiempo estimado: </p>
+
+    <ion-row>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Minutos: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los minutos"
+            [(ngModel)]="tiempoPrueba.minutos" [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let minuto of minutos" value="{{minuto}}">{{minuto}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Segundos: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los segundos"
+            [(ngModel)]="tiempoPrueba.segundos" [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let segundo of segundos" value="{{segundo}}">{{segundo}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Décimas: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona las decimas"
+            [(ngModel)]="tiempoPrueba.decimas" [ngModelOptions]="{standalone: true}">
+            <ion-select-option *ngFor="let decima of decimas" value="{{decima}}">{{decima}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+    <br>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Prueba 2: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona la prueba"
+            formControlName="prueba2">
+            <ion-select-option *ngFor="let prueba of pruebas" value="{{prueba.id}}">{{prueba.prueba}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1">
+        <ion-button fill="clear" color="danger" (click)="formNadador.controls['prueba2'].setValue(null)">
+          <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <p>Tiempo estimado: </p>
+
+    <ion-row>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Minutos: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los minutos"
+            [(ngModel)]="tiempoPrueba2.minutos" [ngModelOptions]="{standalone: true}" [disabled]="!formNadador.value.prueba2">
+            <ion-select-option *ngFor="let minuto of minutos" value="{{minuto}}">{{minuto}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Segundos: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los segundos"
+            [(ngModel)]="tiempoPrueba2.segundos" [ngModelOptions]="{standalone: true}" [disabled]="!formNadador.value.prueba2">
+            <ion-select-option *ngFor="let segundo of segundos" value="{{segundo}}">{{segundo}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+      <ion-col size="4">
+
+        <ion-item>
+          <ion-label>Décimas: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona las decimas"
+            [(ngModel)]="tiempoPrueba2.decimas" [ngModelOptions]="{standalone: true}" [disabled]="!formNadador.value.prueba2">
+            <ion-select-option *ngFor="let decima of decimas" value="{{decima}}">{{decima}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+  </form>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button fill="outline" [disabled]="formNadador.invalid" (click)="guardar()" *ngIf="!nadador">
+        Guardar
+      </ion-button>
+      <ion-button fill="outline" [disabled]="formNadador.invalid" (click)="guardarCambios()" *ngIf="nadador">
+        Guardar cambios
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

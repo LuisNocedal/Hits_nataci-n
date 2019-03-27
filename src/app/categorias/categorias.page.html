@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Categorías</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Categorías</ion-card-title>
+      <!--ion-button color="danger" (click)="limpiarCategorias()">
+        Limpiar
+      </ion-button>-->
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <h2 *ngIf="!categorias || categorias.length <= 0">No se han agregado categorías.</h2>
+        <ion-item *ngFor="let categoria of categorias">
+          <ion-label>{{categoria.edadMenor}} {{(categoria.edadMenor == 1)?'año':'años'}} - {{categoria.edadMayor}}
+            {{(categoria.edadMayor == 1)?'año':'años'}}</ion-label>
+          <ion-button slot="end" color="danger" fill="outline" (click)="confirmarQuitarCategoria(categoria)">
+            Quitar
+            <ion-icon name="trash" slot="end"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-toolbar style="padding: 20px">
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="agregarCategoria()" color="primary">
+          Agregar
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Pruebas</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <h2 *ngIf="!pruebas || pruebas.length <= 0">No se han agregado pruebas.</h2>
+        <ion-item *ngFor="let prueba of pruebas">
+          <ion-label>{{prueba.prueba}}</ion-label>
+          <ion-button slot="end" color="primary" fill="outline" (click)="editarPrueba(prueba)">
+            Editar
+            <ion-icon name="create" slot="end"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" color="danger" fill="outline" (click)="confirmarQuitarPrueba(prueba)">
+            Quitar
+            <ion-icon name="trash" slot="end"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-toolbar style="padding: 20px">
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="agregarPrueba()" color="primary">
+          Agregar
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+</ion-content>

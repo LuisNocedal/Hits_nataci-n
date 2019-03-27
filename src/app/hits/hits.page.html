@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Hits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Categoría</ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="categoria">
+                <ion-select-option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.edadMenor}}
+                  {{(categoria.edadMenor == 1)?'año':'años'}} - {{categoria.edadMayor}}
+                  {{(categoria.edadMayor == 1)?'año':'años'}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Prueba</ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="prueba">
+                <ion-select-option *ngFor="let prueba of pruebas" value="{{prueba.id}}">{{prueba.prueba}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Rama</ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="rama">
+                <ion-select-option value="Femenil">Femenil</ion-select-option>
+                <ion-select-option value="Varonil">Varonil</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Nadadores por hit</ion-label>
+              <ion-input [(ngModel)]="nadadoresPorHit" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-button [disabled]="!categoria || !prueba || !rama || !nadadoresPorHit || nadadoresPorHit < 1"
+              (click)="inicializarColumnas()">
+              Ver hits
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button fill="outline" (click)="exportarExcel()" color="primary"
+            [disabled]="!categoria || !prueba || !rama">
+            Exportar a Excel
+            <ion-icon slot="end" name="download"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" (click)="abrirEnVentana()" [disabled]="!datosVista">
+            Ver patalla completa
+            <ion-icon slot="end" name="expand"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-grid class="tablaHits" *ngIf="hits && hits.length > 0">
+        <ion-row>
+          <ion-col size="0.5" class="colorCasilla"></ion-col>
+          <ion-col *ngFor="let columna of columnas" class="colorCasilla">{{columna}}</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let filaHits of hits; let i = index">
+          <ion-col size="0.5" class="colorCasilla">{{i+1}}</ion-col>
+          <ion-col *ngFor="let nadador of filaHits">
+            <p><strong>Nombre: </strong>{{nadador.nombre}}</p>
+            <p><strong>Minutos: </strong>{{nadador.pruebaFiltro.tiempoEstimado}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

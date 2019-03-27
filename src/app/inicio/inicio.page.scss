@@ -1,0 +1,24 @@
+.listaBuscador{
+    position: absolute;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    width: 98%;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.itemNadador:hover{
+    cursor: pointer;
+}
+
+#contentResultados{
+    height: 400px;
+    overflow: auto;
+}
+
+.botonIndex{
+    text-decoration: underline;
+    color: dodgerblue;
+}

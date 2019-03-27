@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Nadadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-title>Nadadores</ion-card-title>
+      <!--<ion-button color="danger" (click)="limpiar()">
+        Limpiar
+      </ion-button>-->
+      <ion-row *ngIf="configuraciones && configuraciones.modoPrueba">
+        <ion-col size="3">
+          <ion-item>
+            <ion-label position="floating">Nadadores</ion-label>
+            <ion-input [(ngModel)]="numNadadores" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="confirmarGenerarNadadores()" [disabled]="!numNadadores || numNadadores < 0">
+            Generar nadadores
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+    <ion-searchbar placeholder="Buscar nadador por nombre" [(ngModel)]="busqueda"
+      (ionChange)="filtrarPorNombre($event)"></ion-searchbar>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Categoría</ion-label>
+            <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="categoria">
+              <ion-select-option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.edadMenor}}
+                {{(categoria.edadMenor == 1)?'año':'años'}} - {{categoria.edadMayor}}
+                {{(categoria.edadMayor == 1)?'año':'años'}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Prueba</ion-label>
+            <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="prueba">
+              <ion-select-option *ngFor="let prueba of pruebas" value="{{prueba.id}}">{{prueba.prueba}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Rama</ion-label>
+            <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="rama">
+              <ion-select-option value="Femenil">Femenil</ion-select-option>
+              <ion-select-option value="Varonil">Varonil</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-button [disabled]="!categoria && !prueba && !rama" (click)="filtrarPorCaracteristicas()">
+            Filtrar
+          </ion-button>
+          <ion-button color="dark" (click)="quitarFiltro()">
+            Quitar filtro
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <h2 *ngIf="nadadoresFiltrados" style="padding-left: 10px"><strong>Total: {{nadadoresFiltrados.length}}</strong></h2>
+    <ion-card-content>
+
+      <h2 *ngIf="busquedaSinResultados">No se encontraron resultados.</h2>
+      <ion-list>
+        <h2 *ngIf="!nadadores || nadadores.length <= 0">No se han agregado nadadores.</h2>
+        <div *ngIf="nadadoresPorBloques && nadadoresPorBloques.length > 0">
+          <ion-item *ngFor="let nadador of nadadoresPorBloques[page]">
+            <ion-label>
+              <p><strong>Nombre: </strong>{{nadador.nombre}}</p>
+              <p><strong>Edad: </strong>{{nadador.edad}} {{(nadador.edad == 1)?'año':'años'}}</p>
+              <p><strong>Rama: </strong>{{nadador.rama}}</p>
+              <p><strong>Categoría: </strong>{{nadador.categoria.edadMenor}} - {{nadador.categoria.edadMayor}} años</p>
+            </ion-label>
+            <ion-label>
+              <p><strong>Pruebas</strong></p>
+              <ion-label *ngFor="let prueba of nadador.pruebas">
+                <p>{{prueba.prueba}}</p>
+                <p *ngIf="prueba.id"><strong>Tiempo estimado: </strong>{{prueba.tiempoEstimado}}</p>
+              </ion-label>
+            </ion-label>
+            <ion-button slot="end" color="primary" fill="outline" (click)="editar(nadador)">
+              Editar
+              <ion-icon name="create" slot="end"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" color="danger" fill="outline" (click)="confirmarQuitar(nadador)">
+              Quitar
+              <ion-icon name="trash" slot="end"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-card-content>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="page == 0" (click)="cambiarPagina(-1)">
+          <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+        </ion-button>
+        <ion-row>
+          <ion-col *ngFor="let boton of botonesIndex; let i = index">
+            <ion-button [class.botonIndex]="page == boton" (click)="page = boton">
+              {{boton+1}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-button [disabled]="page >= botonesIndex.length - 1" (click)="cambiarPagina(1)">
+          <ion-icon slot="icon-only" name="arrow-round-forward"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar style="padding: 20px">
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="agregar()" color="primary">
+          Agregar
+          <ion-icon slot="end" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+
+</ion-content>

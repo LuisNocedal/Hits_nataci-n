@@ -1,0 +1,13 @@
+.item:hover{
+    --background: rgba(72, 199, 254,0.2);
+}
+
+.itemSeleccionado{
+    --background: rgba(72, 199, 254,1);
+}
+
+img{
+    max-width: 200px;
+    display: block;
+    margin: auto;
+}

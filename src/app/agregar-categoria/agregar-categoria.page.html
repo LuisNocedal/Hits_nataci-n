@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar categoría</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Edad:</h2>
+  <ion-item>
+    <ion-label>De: </ion-label>
+    <ion-select okText="Aceptar" cancelText="Cancelar"placeholder="Selecciona la edad" [(ngModel)]="edadMenor">
+      <ion-select-option *ngFor="let edad of edades" value="{{edad}}">{{edad}} {{(edad == 1)?'año':'años'}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>A: </ion-label>
+    <ion-select okText="Aceptar" cancelText="Cancelar"placeholder="Selecciona la edad" [(ngModel)]="edadMayor">
+      <ion-select-option *ngFor="let edad of edades" value="{{edad}}">{{edad}} {{(edad == 1)?'año':'años'}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <p *ngIf="compararEdades()" style="color:rgb(236, 85, 85)">La primera edad no puede ser mayor que la segunda.</p>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button fill="outline" [disabled]="(!edadMenor || !edadMayor) || compararEdades()" (click)="guardar()">
+        Guardar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,63 @@
+<ion-split-pane>
+  <!--  our side menu  -->
+  <ion-menu>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'inicio'" [routerDirection]="'root'"
+            [routerLink]="['/menu/inicio']" (click)="seleccionado = 'inicio'">
+            <ion-icon slot="start" name="clipboard"></ion-icon>
+            <ion-label>
+              Inicio
+            </ion-label>
+          </ion-item>
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'marcadores'" [routerDirection]="'root'"
+            [routerLink]="['/menu/marcadores']" (click)="seleccionado = 'marcadores'">
+            <ion-icon slot="start" name="medal"></ion-icon>
+            <ion-label>
+              Marcadores
+            </ion-label>
+          </ion-item>
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'hits'" [routerDirection]="'root'"
+            [routerLink]="['/menu/hits']" (click)="seleccionado = 'hits'">
+            <ion-icon slot="start" name="grid"></ion-icon>
+            <ion-label>
+              Hits
+            </ion-label>
+          </ion-item>
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'nadadores'" [routerDirection]="'root'"
+            [routerLink]="['/menu/nadadores']" (click)="seleccionado = 'nadadores'">
+            <ion-icon slot="start" name="person"></ion-icon>
+            <ion-label>
+              Nadadores
+            </ion-label>
+          </ion-item>
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'categorias'" [routerDirection]="'root'"
+            [routerLink]="['/menu/categorias']" (click)="seleccionado = 'categorias'">
+            <ion-icon slot="start" name="albums"></ion-icon>
+            <ion-label>
+              Categorías y pruebas
+            </ion-label>
+          </ion-item>
+          <ion-item class="item" [class.itemSeleccionado]="seleccionado == 'configuraciones'" [routerDirection]="'root'"
+            [routerLink]="['/menu/configuraciones']" (click)="seleccionado = 'configuraciones'">
+            <ion-icon slot="start" name="settings"></ion-icon>
+            <ion-label>
+              Configuraciones
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <img src="assets/imgs/logo poligono 1.png">
+      </ion-list>
+      <p>Versión: {{version}}</p>
+    </ion-content>
+  </ion-menu>
+
+  <!-- the main content -->
+  <ion-router-outlet main></ion-router-outlet>
+</ion-split-pane>

@@ -1,0 +1,26 @@
+#imagen1{
+    display: block;
+    margin: auto;
+    max-width: 120px;
+}
+
+#imagen2{
+    display: block;
+    margin: auto;
+    max-width: 250px;
+}
+
+.tablaHits ion-col{
+    border: 1px solid grey
+}
+
+.colorCasilla{
+    background-color: dodgerblue;
+    color: white;
+}
+
+div{
+    height: 450px;
+    overflow: auto;
+}
+    

@@ -1,0 +1,52 @@
+<!--<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Marcador</ion-title>
+  </ion-toolbar>
+</ion-header>-->
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col><img src="assets/imgs/COMUDE.png" id="imagen1"></ion-col>
+      <ion-col>
+        <h2 style="text-align: center"><strong>Rama {{rama}}</strong></h2>
+        <h2 style="text-align: center" *ngIf="categoria"><strong>{{categoria.edadMenor}} - {{categoria.edadMayor}}
+            años</strong></h2>
+        <h2 style="text-align: center" *ngIf="prueba"><strong>{{prueba.prueba}}</strong></h2>
+      </ion-col>
+      <ion-col><img src="assets/imgs/ESCUELAS.png" id="imagen2"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div>
+    <ion-grid>
+      <ion-row class="cabecera">
+        <ion-col lign-self-center size="2">
+          <h2>Lugar</h2>
+        </ion-col>
+        <ion-col lign-self-center>
+          <h2>Nombre</h2>
+        </ion-col>
+        <ion-col lign-self-center>
+          <h2>Tiempo</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let resultado of resultadosFiltrados;let i = index" class="resultados">
+        <ion-col [class.primero]="i == 0" [class.segundo]="i == 1" [class.tercero]="i == 2" size="2">
+          <h2>{{i+1}}</h2>
+        </ion-col>
+        <ion-col>
+          <h2>{{resultado.nadador.nombre}}</h2>
+        </ion-col>
+        <ion-col>
+          <h2>{{resultado.tiempo}}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

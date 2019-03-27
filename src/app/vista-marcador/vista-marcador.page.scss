@@ -1,0 +1,46 @@
+.cabecera{
+    background-color: dodgerblue;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.resultados{
+    text-align: center;
+}
+
+.primero{
+    background-color: gold;
+    color: white;
+}
+
+.segundo{
+    background-color: silver;
+    color: white;
+}
+
+.tercero{
+    background-color: coral;
+    color: white;
+}
+
+.resultados ion-col{
+    border: 1px solid grey;
+}
+
+#imagen1{
+    display: block;
+    margin: auto;
+    max-width: 120px;
+}
+
+#imagen2{
+    display: block;
+    margin: auto;
+    max-width: 250px;
+}
+
+div{
+    height: 450px;
+    overflow: auto;
+}

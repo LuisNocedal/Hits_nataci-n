@@ -1,0 +1,29 @@
+.cabecera{
+    background-color: dodgerblue;
+    color: white;
+    text-align: center
+}
+
+.resultados{
+    text-align: center
+}
+
+.primero{
+    background-color: gold;
+    color: white;
+}
+
+.segundo{
+    background-color: silver;
+    color: white;
+}
+
+.tercero{
+    background-color: coral;
+    color: white;
+}
+
+ion-card-content{
+    height: 500px;
+    overflow: auto;
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Configuraciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-button color="danger" (click)="confimarLimpiarDatos()">
+    Limpiar todos los datos
+  </ion-button>
+
+  <ion-button color="danger" (click)="confimarLimpiarNadadoresYResultados()">
+    Limpiar nadadores y resultados
+  </ion-button>
+
+  <ion-button color="danger" (click)="confimarLimpiarResultados()">
+    Limpiar resultados
+  </ion-button>
+
+  <ion-item style="width: 200px">
+    <ion-label>Modo prueba</ion-label>
+    <ion-toggle [(ngModel)]="configuraciones.modoPrueba" (ngModelChange)="guardarConfiguracionModoPrueba($event)"></ion-toggle>
+  </ion-item>
+
+</ion-content>

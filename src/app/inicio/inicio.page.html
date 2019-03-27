@@ -1,0 +1,179 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Agregar resultado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-searchbar placeholder="Buscar nadador" (ionChange)="filtrarNadadores($event)" [(ngModel)]="busqueda">
+      </ion-searchbar>
+
+      <form [formGroup]="formResultado">
+        <ion-list class="listaBuscador" *ngIf="nadadoresFiltrados">
+          <ion-item *ngIf="busquedaSinResultados">
+            <ion-label>
+              <h2>No se encontraron resultados</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item *ngFor="let nadador of nadadoresFiltrados" class="itemNadador"
+            (click)="seleccionarNadador(nadador)">
+            {{nadador.nombre}}
+          </ion-item>
+        </ion-list>
+
+        <ion-item>
+          <ion-label position="floating">Nombre del nadador</ion-label>
+          <ion-input [(ngModel)]="nombreNadador" [ngModelOptions]="{standalone: true}" disabled></ion-input>
+        </ion-item>
+
+        <!--<ion-item>
+          <ion-label position="floating">Calificación</ion-label>
+          <ion-input formControlName="calificacion"></ion-input>
+        </ion-item>-->
+
+        <ion-row>
+          <ion-col size="3">
+
+            <ion-item>
+              <ion-label>Minutos: </ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los minutos"
+                [(ngModel)]="tiempo.minutos" [ngModelOptions]="{standalone: true}">
+                <ion-select-option *ngFor="let minuto of minutos" value="{{minuto}}">{{minuto}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="3">
+
+            <ion-item>
+              <ion-label>Segundos: </ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona los segundos"
+                [(ngModel)]="tiempo.segundos" [ngModelOptions]="{standalone: true}">
+                <ion-select-option *ngFor="let segundo of segundos" value="{{segundo}}">{{segundo}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="3">
+
+            <ion-item>
+              <ion-label>Décimas: </ion-label>
+              <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona las decimas"
+                [(ngModel)]="tiempo.decimas" [ngModelOptions]="{standalone: true}">
+                <ion-select-option *ngFor="let decima of decimas" value="{{decima}}">{{decima}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+          <!--<ion-col size="3">
+            <ion-item>
+              <ion-label position="floating">Tiempo</ion-label>
+              <ion-input formControlName="tiempo" disabled></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="openPicker()">
+              Agregar tiempo
+            </ion-button>
+          </ion-col>-->
+        </ion-row>
+
+        <ion-item>
+          <ion-label>Prueba: </ion-label>
+          <ion-select okText="Aceptar" cancelText="Cancelar" placeholder="Selecciona la prueba" formControlName="prueba"
+            [disabled]="!nombreNadador">
+            <ion-select-option *ngFor="let prueba of pruebas" value="{{prueba.id}}">{{prueba.prueba}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </form>
+
+    </ion-card-content>
+    <ion-toolbar style="padding: 20px">
+      <ion-buttons slot="end">
+        <ion-button fill="outline" (click)="cancelarEdicion()" color="dark" *ngIf="editMode">
+          Cancelar edición
+        </ion-button>
+        <ion-button fill="outline" (click)="guardar()" color="primary" [disabled]="formResultado.invalid"
+          *ngIf="!editMode">
+          Guardar
+        </ion-button>
+        <ion-button fill="outline" (click)="guardarCambios()" color="primary" [disabled]="formResultado.invalid"
+          *ngIf="editMode">
+          Guardar cambios
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resultados</ion-card-title>
+      <!--<ion-button color="danger" (click)="limpiar()">
+        Limpiar
+      </ion-button>-->
+      <ion-button (click)="confirmarGenerar()" *ngIf="configuraciones && configuraciones.modoPrueba">
+        Generar todos los resultados
+      </ion-button>
+    </ion-card-header>
+    <ion-card-content id="contentResultados">
+      <ion-list>
+        <h2 *ngIf="!resultados || resultados.length <= 0">No se han ingresado resultados.</h2>
+        <div *ngIf="resultadosPorBloques && resultadosPorBloques.length > 0">
+          <ion-item *ngFor="let resultado of resultadosPorBloques[page]">
+            <ion-label>
+              <p><strong>Nadador: </strong> {{resultado.nadador.nombre}}</p>
+              <p><strong>Tiempo: </strong>{{resultado.tiempo}}</p>
+            </ion-label>
+            <ion-label>
+              <p><strong>Rama: </strong> {{resultado.nadador.rama}}</p>
+              <p><strong>Prueba: </strong>{{resultado.prueba.prueba}}</p>
+              <p *ngIf="resultado.nadador.categoria"><strong>Categoría:
+                </strong>{{resultado.nadador.categoria.edadMenor}}
+                - {{resultado.nadador.categoria.edadMayor}} años</p>
+            </ion-label>
+            <ion-button slot="end" color="primary" fill="outline" (click)="editar(resultado)">
+              Editar
+              <ion-icon name="create" slot="end"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" color="danger" fill="outline" (click)="confirmarQuitar(resultado)">
+              Quitar
+              <ion-icon name="trash" slot="end"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-card-content>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="page == 0" (click)="cambiarPagina(-1)">
+          <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+        </ion-button>
+        <ion-row>
+          <ion-col *ngFor="let boton of botonesIndex; let i = index">
+            <ion-button [class.botonIndex]="page == boton" (click)="page = boton">
+              {{boton+1}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-button [disabled]="page >= botonesIndex.length - 1" (click)="cambiarPagina(1)">
+          <ion-icon slot="icon-only" name="arrow-round-forward"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card>
+
+</ion-content>
